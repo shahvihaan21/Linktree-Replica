@@ -1,0 +1,6 @@
+# Local runtime and operating-system files
+portfo/
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db
