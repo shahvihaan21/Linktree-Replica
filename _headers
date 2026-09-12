@@ -1,0 +1,7 @@
+# Cloudflare Pages — custom response headers
+# Applied to all pages served from this static site.
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
