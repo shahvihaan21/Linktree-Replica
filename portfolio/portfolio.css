@@ -137,6 +137,11 @@ img {
   margin-top: 22px;
 }
 
+.portfolio-description strong {
+  color: #dce0ef;
+  font-weight: 600;
+}
+
 /* ── Certifications Section ── */
 .certifications-section {
   margin-top: 72px;
