@@ -13,10 +13,12 @@ const icons = {
  * The svg strings in `icons` are static, author-controlled markup —
  * NOT user-supplied data.  We use DOMParser so the browser parses
  * them as XML/SVG rather than injecting raw HTML into the DOM.
+ * document.importNode adopts the node into the current document so
+ * it renders correctly (namespace is preserved).
  */
 function parseSVG(svgString) {
   const doc = new DOMParser().parseFromString(svgString, 'image/svg+xml')
-  return doc.documentElement
+  return document.importNode(doc.documentElement, true)
 }
 
 function makeAnchor(link, className, label) {
