@@ -44,8 +44,7 @@ function renderCertifications() {
   const valid = certifications.filter(c => c.image);
 
   if (valid.length === 0) {
-    // Show subtle empty state
-    grid.innerHTML = '';
+    grid.replaceChildren();
     if (empty) empty.style.display = '';
     return;
   }
@@ -53,30 +52,61 @@ function renderCertifications() {
   // Hide empty state
   if (empty) empty.style.display = 'none';
 
-  grid.innerHTML = valid
-    .map((cert, i) => {
-      const delay = (0.38 + i * 0.07).toFixed(2);
-      const titleHTML = cert.title
-        ? `<p class="cert-title">${escapeHTML(cert.title)}</p>`
-        : '';
-      const issuerHTML = cert.issuer
-        ? `<p class="cert-issuer">${escapeHTML(cert.issuer)}</p>`
-        : '';
-      const yearHTML = cert.year
-        ? `<p class="cert-year">${escapeHTML(cert.year)}</p>`
-        : '';
-      const hasInfo = cert.title || cert.issuer || cert.year;
+  grid.replaceChildren();
 
-      return `
-        <div class="cert-card" data-index="${i}" style="animation-delay:${delay}s" tabindex="0" role="button" aria-label="View ${cert.title || 'certification'} full size">
-          <div class="cert-image-wrap">
-            <img src="${escapeHTML(cert.image)}" alt="${escapeHTML(cert.title || 'Certification')}" loading="lazy" />
-          </div>
-          ${hasInfo ? `<div class="cert-info">${titleHTML}${issuerHTML}${yearHTML}</div>` : ''}
-        </div>
-      `;
-    })
-    .join('');
+  valid.forEach((cert, i) => {
+    const delay = (0.38 + i * 0.07).toFixed(2);
+
+    // Outer card
+    const card = document.createElement('div');
+    card.className = 'cert-card';
+    card.dataset.index = String(i);
+    card.style.animationDelay = delay + 's';
+    card.tabIndex = 0;
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', 'View ' + (cert.title || 'certification') + ' full size');
+
+    // Image wrapper
+    const imageWrap = document.createElement('div');
+    imageWrap.className = 'cert-image-wrap';
+
+    const img = document.createElement('img');
+    img.src = cert.image;
+    img.alt = cert.title || 'Certification';
+    img.loading = 'lazy';
+    imageWrap.appendChild(img);
+    card.appendChild(imageWrap);
+
+    // Info block (only if there's something to show)
+    const hasInfo = cert.title || cert.issuer || cert.year;
+    if (hasInfo) {
+      const info = document.createElement('div');
+      info.className = 'cert-info';
+
+      if (cert.title) {
+        const p = document.createElement('p');
+        p.className = 'cert-title';
+        p.textContent = cert.title;
+        info.appendChild(p);
+      }
+      if (cert.issuer) {
+        const p = document.createElement('p');
+        p.className = 'cert-issuer';
+        p.textContent = cert.issuer;
+        info.appendChild(p);
+      }
+      if (cert.year) {
+        const p = document.createElement('p');
+        p.className = 'cert-year';
+        p.textContent = cert.year;
+        info.appendChild(p);
+      }
+
+      card.appendChild(info);
+    }
+
+    grid.appendChild(card);
+  });
 }
 
 // ── Lightbox ──
@@ -136,13 +166,6 @@ function initLightbox() {
       closeLightbox();
     }
   });
-}
-
-// ── Utility ──
-function escapeHTML(str) {
-  const div = document.createElement('div');
-  div.textContent = str;
-  return div.innerHTML;
 }
 
 // ── Init ──

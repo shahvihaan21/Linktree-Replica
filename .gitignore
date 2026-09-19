@@ -1,6 +1,41 @@
-# Local runtime and operating-system files
-portfo/
-__pycache__/
-*.py[cod]
+# ── Secrets & credentials ──────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+credentials.yml
+service-account*.json
+*_rsa
+*_dsa
+*_ecdsa
+*_ed25519
+
+# ── Local config ────────────────────────────────────────
+*.local
+config.local.*
+
+# ── OS / editor junk ────────────────────────────────────
 .DS_Store
 Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+.vscode/settings.json
+
+# ── Build & cache ───────────────────────────────────────
+node_modules/
+.cache/
+dist/
+build/
+.vercel/
+.netlify/
+__pycache__/
+*.py[cod]
+
+# ── Legacy entry (kept to avoid breaking existing ignores) ──
+portfo/

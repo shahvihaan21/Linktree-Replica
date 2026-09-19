@@ -8,11 +8,27 @@ const icons = {
   arrow: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg>',
 }
 
-function makeLink(link, className, content, label) {
-  if (link.internal) {
-    return '<a class="' + className + '" href="' + link.url + '" aria-label="' + label + '">' + content + '</a>'
+/**
+ * Create a safe SVG element from a trusted inline SVG string.
+ * The svg strings in `icons` are static, author-controlled markup —
+ * NOT user-supplied data.  We use DOMParser so the browser parses
+ * them as XML/SVG rather than injecting raw HTML into the DOM.
+ */
+function parseSVG(svgString) {
+  const doc = new DOMParser().parseFromString(svgString, 'image/svg+xml')
+  return doc.documentElement
+}
+
+function makeAnchor(link, className, label) {
+  const a = document.createElement('a')
+  a.className = className
+  a.href = link.url
+  a.setAttribute('aria-label', label)
+  if (!link.internal) {
+    a.target = '_blank'
+    a.rel = 'noopener noreferrer'
   }
-  return '<a class="' + className + '" href="' + link.url + '" target="_blank" rel="noopener noreferrer" aria-label="' + label + '">' + content + '</a>'
+  return a
 }
 
 function renderNavigation() {
@@ -20,20 +36,54 @@ function renderNavigation() {
   const linkList = document.querySelector('#link-list')
   if (!socialList || !linkList) return
 
-  socialList.innerHTML = links
+  // ── Social icons ──────────────────────────────────────
+  socialList.replaceChildren()
+  links
     .filter((link) => socialImages[link.icon])
-    .map((link) => makeLink(link, 'social-link', '<img src="' + socialImages[link.icon] + '" alt="" />', 'Vihaan Shah on ' + link.title))
-    .join('')
-
-  linkList.innerHTML = links
-    .map((link) => {
-      const content =
-        '<span class="link-icon">' + icons[link.icon] + '</span>' +
-        '<span class="link-copy"><strong>' + link.title + '</strong><small>' + link.subtitle + '</small></span>' +
-        '<span class="arrow">' + icons.arrow + '</span>'
-      return makeLink(link, 'link-card', content, link.title + ': ' + link.subtitle)
+    .forEach((link) => {
+      const a = makeAnchor(link, 'social-link', 'Vihaan Shah on ' + link.title)
+      const img = document.createElement('img')
+      img.src = socialImages[link.icon]
+      img.alt = ''
+      a.appendChild(img)
+      socialList.appendChild(a)
     })
-    .join('')
+
+  // ── Link cards ────────────────────────────────────────
+  linkList.replaceChildren()
+  links.forEach((link) => {
+    const a = makeAnchor(link, 'link-card', link.title + ': ' + link.subtitle)
+
+    // Icon wrapper
+    const iconSpan = document.createElement('span')
+    iconSpan.className = 'link-icon'
+    if (icons[link.icon]) {
+      iconSpan.appendChild(parseSVG(icons[link.icon]))
+    }
+
+    // Copy wrapper
+    const copySpan = document.createElement('span')
+    copySpan.className = 'link-copy'
+
+    const strong = document.createElement('strong')
+    strong.textContent = link.title
+
+    const small = document.createElement('small')
+    small.textContent = link.subtitle
+
+    copySpan.appendChild(strong)
+    copySpan.appendChild(small)
+
+    // Arrow wrapper
+    const arrowSpan = document.createElement('span')
+    arrowSpan.className = 'arrow'
+    arrowSpan.appendChild(parseSVG(icons.arrow))
+
+    a.appendChild(iconSpan)
+    a.appendChild(copySpan)
+    a.appendChild(arrowSpan)
+    linkList.appendChild(a)
+  })
 }
 
 function enableAboutToggle() {
