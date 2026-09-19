@@ -9,16 +9,15 @@ const icons = {
 }
 
 /**
- * Create a safe SVG element from a trusted inline SVG string.
- * The svg strings in `icons` are static, author-controlled markup —
- * NOT user-supplied data.  We use DOMParser so the browser parses
- * them as XML/SVG rather than injecting raw HTML into the DOM.
- * document.importNode adopts the node into the current document so
- * it renders correctly (namespace is preserved).
+ * Parse a trusted, static SVG string into a live SVG element.
+ * <template> content is inert (no scripts execute, no resources load)
+ * and correctly handles SVG namespace inside an HTML document —
+ * making this safe and reliable for author-controlled icon markup.
  */
 function parseSVG(svgString) {
-  const doc = new DOMParser().parseFromString(svgString, 'image/svg+xml')
-  return document.importNode(doc.documentElement, true)
+  const tpl = document.createElement('template')
+  tpl.innerHTML = svgString
+  return tpl.content.firstElementChild
 }
 
 function makeAnchor(link, className, label) {
