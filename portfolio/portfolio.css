@@ -169,6 +169,36 @@ img {
   font-weight: 600;
 }
 
+.resume-action {
+  margin-top: 36px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.resume-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #e2e5ef, #f5f5f5);
+  color: #070707;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  border-radius: 9999px;
+  box-shadow: 0 8px 24px rgba(226, 229, 239, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.resume-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(226, 229, 239, 0.25);
+}
+
+.resume-btn:active {
+  transform: translateY(0);
+}
+
 /* ── Certifications Section ── */
 .certifications-section {
   margin-top: 72px;
