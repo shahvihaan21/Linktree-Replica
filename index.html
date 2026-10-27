@@ -7,8 +7,62 @@
     <meta name="description" content="Vihaan Shah — student, writer, and analytical thinker." />
     <title>Vihaan Shah — Links</title>
     <link rel="stylesheet" href="src/styles.css" />
+    <style>
+      /* ── Loading Screen ── */
+      .loader-screen {
+        position: fixed; inset: 0; z-index: 9999;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        background: #070809;
+        transition: opacity .5s ease, visibility .5s ease;
+      }
+      .loader-screen.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+      .loader-spinner {
+        width: 36px; height: 36px;
+        border: 2.5px solid rgba(255,255,255,.08);
+        border-top-color: #b9c6ff;
+        border-radius: 50%;
+        animation: loader-spin .7s linear infinite;
+      }
+      .loader-text {
+        margin-top: 18px;
+        color: #777a86;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        animation: loader-pulse 1.6s ease-in-out infinite;
+      }
+      @keyframes loader-spin { to { transform: rotate(360deg); } }
+      @keyframes loader-pulse { 0%,100% { opacity: .4; } 50% { opacity: 1; } }
+
+      /* ── Resume Loading Overlay ── */
+      .resume-loader {
+        position: fixed; inset: 0; z-index: 9998;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        background: rgba(7,8,9,.92);
+        backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+        opacity: 0; visibility: hidden; pointer-events: none;
+        transition: opacity .35s ease, visibility .35s ease;
+      }
+      .resume-loader.is-active { opacity: 1; visibility: visible; pointer-events: auto; }
+      .resume-loader .loader-spinner { border-top-color: #e2e5ef; }
+      .resume-loader .loader-text { color: #a5a7b0; }
+    </style>
   </head>
   <body>
+    <!-- Page Loading Screen -->
+    <div class="loader-screen" id="loader-screen" aria-live="polite">
+      <div class="loader-spinner"></div>
+      <p class="loader-text">Loading</p>
+    </div>
+
+    <!-- Resume Loading Overlay -->
+    <div class="resume-loader" id="resume-loader" aria-live="polite">
+      <div class="loader-spinner"></div>
+      <p class="loader-text">Resume Loading</p>
+    </div>
+
     <main class="page-shell">
 
 
@@ -49,5 +103,27 @@
 
     <script src="src/site-data.js"></script>
     <script src="src/script.js"></script>
+    <script>
+      // ── Page loader dismiss ──
+      window.addEventListener('load', function() {
+        var loader = document.getElementById('loader-screen');
+        if (loader) {
+          setTimeout(function() { loader.classList.add('is-hidden'); }, 300);
+          setTimeout(function() { loader.remove(); }, 900);
+        }
+      });
+
+      // ── Resume loading overlay ──
+      (function() {
+        var resumeOverlay = document.getElementById('resume-loader');
+        if (!resumeOverlay) return;
+        document.querySelectorAll('a[href*="Resume.pdf"]').forEach(function(link) {
+          link.addEventListener('click', function() {
+            resumeOverlay.classList.add('is-active');
+            setTimeout(function() { resumeOverlay.classList.remove('is-active'); }, 2200);
+          });
+        });
+      })();
+    </script>
   </body>
 </html>
