@@ -4,10 +4,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#09090b" />
-  <meta name="description"
-    content="Vihaan Shah — BBA Leadership student exploring business analytics, investing, technology and psychology." />
+  <meta name="theme-color" content="#070809" />
+  <meta
+    name="description"
+    content="Vihaan Shah — BBA student exploring business, technology, analytics, and investing through hands-on learning and practical projects."
+  />
   <title>Vihaan Shah — Portfolio</title>
+  <link rel="canonical" href="https://linktree-replica.shahvihaan39.workers.dev/portfolio/" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:url" content="https://linktree-replica.shahvihaan39.workers.dev/portfolio/" />
+  <meta property="og:title" content="Vihaan Shah — Portfolio" />
+  <meta
+    property="og:description"
+    content="Vihaan Shah — BBA student exploring business, technology, analytics, and investing through hands-on learning and practical projects."
+  />
+  <meta property="og:image" content="https://linktree-replica.shahvihaan39.workers.dev/Assets/Vihaan.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:url" content="https://linktree-replica.shahvihaan39.workers.dev/portfolio/" />
+  <meta name="twitter:title" content="Vihaan Shah — Portfolio" />
+  <meta
+    name="twitter:description"
+    content="Vihaan Shah — BBA student exploring business, technology, analytics, and investing through hands-on learning and practical projects."
+  />
+  <meta name="twitter:image" content="https://linktree-replica.shahvihaan39.workers.dev/Assets/Vihaan.png" />
+
+  <link rel="icon" type="image/png" href="../Assets/Vihaan.png" />
   <link rel="stylesheet" href="portfolio.css" />
 </head>
 
@@ -16,7 +41,7 @@
 
     <!-- Back navigation -->
     <nav class="back-nav" id="back-nav" aria-label="Back navigation">
-      <a href="/" class="back-link" id="back-link">
+      <a href="../" class="back-link" id="back-link">
         <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
           <path d="M19 12H5M12 19l-7-7 7-7" fill="none" stroke="currentColor" stroke-linecap="round"
             stroke-linejoin="round" stroke-width="1.8"></path>
@@ -28,7 +53,7 @@
     <!-- Main content -->
     <main class="portfolio" aria-labelledby="portfolio-title">
 
-      <!-- Introduction -->
+      <!-- Introduction Header -->
       <header class="portfolio-header">
         <p class="eyebrow">ABOUT / PORTFOLIO</p>
         <h1 id="portfolio-title" class="portfolio-name">Vihaan Shah</h1>
@@ -38,26 +63,30 @@
       <article class="portfolio-description" id="portfolio-description">
         <p>
           Hi, I'm <strong>Vihaan Shah</strong>, a Second Year BBA student at Parul University, Vadodara.
-          I'm curious about <strong>Business, Investing, Analytics, Technology, and Psychology</strong>,
-          and I enjoy diving deeper into things that genuinely interest me.
+          I'm passionate about <strong>Business, Technology, Analytics, and Investing</strong>,
+          with a strong curiosity for understanding how systems work and creating real-world solutions.
         </p>
         <p>
-          My experiences in <strong>international virtual exchange, student coordination, working with
+          My experiences in <strong>international virtual exchange, student coordination, assisting
           international delegates, and building a local AI interface with Ollama</strong> have helped me
-          grow in communication, teamwork, problem-solving, and cross-cultural collaboration.
+          develop practical skills in communication, teamwork, problem-solving, and cross-cultural collaboration.
         </p>
         <p>
-          I value <strong>resilience and determination</strong>, and while I'm still figuring out where
-          my interests will take me, I'm focused on <strong>learning, building, experimenting, and
-          becoming better along the way.</strong>
+          I value <strong>resilience, disciplined execution, and continuous learning</strong>. While I continue exploring
+          where my interests will lead, I'm dedicated to <strong>building, experimenting, and growing along the way.</strong>
         </p>
+        <div class="resume-action">
+          <a href="../Vihaan%20Shah%20Resume.pdf" target="_blank" rel="noopener noreferrer" class="resume-btn">
+            MY RESUME
+          </a>
+        </div>
       </article>
 
       <!-- Certifications -->
       <section class="certifications-section" id="certifications-section" aria-labelledby="certifications-title">
         <h2 class="section-label" id="certifications-title">CERTIFICATIONS</h2>
         <div class="certifications-grid" id="certifications-grid">
-          <!-- Certification cards are rendered by portfolio.js -->
+          <!-- Certification cards are rendered dynamically by portfolio.js -->
         </div>
         <p class="certifications-empty" id="certifications-empty">
           Certifications will appear here as they are added.
@@ -80,8 +109,8 @@
   </div>
 
   <!-- Lightbox overlay -->
-  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Certification preview">
-    <button class="lightbox-close" id="lightbox-close" aria-label="Close preview">&times;</button>
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Certification preview">
+    <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close preview">&times;</button>
     <img class="lightbox-image" id="lightbox-image" src="" alt="" />
   </div>
 

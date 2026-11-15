@@ -3,7 +3,7 @@ window.siteData = {
   links: [
     {
       title: 'GitHub',
-      subtitle: 'Explore my projects & Experiments',
+      subtitle: 'Explore my projects & experiments',
       url: 'https://github.com/shahvihaan21',
       icon: 'github',
     },
@@ -16,7 +16,7 @@ window.siteData = {
     {
       title: 'Portfolio',
       subtitle: 'More about me',
-      url: '/portfolio',
+      url: 'portfolio/',
       icon: 'globe',
       internal: true,
     },
