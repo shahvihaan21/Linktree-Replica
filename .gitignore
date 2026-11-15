@@ -39,3 +39,6 @@ __pycache__/
 
 # ── Legacy entry (kept to avoid breaking existing ignores) ──
 portfo/
+
+# Cloudflare Wrangler build cache
+.wrangler/

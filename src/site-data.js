@@ -28,7 +28,7 @@ window.siteData = {
     },
   ],
   socialImages: {
-    github: 'Assets/Github.jpg',
+    github: 'Assets/github.png',
     linkedin: 'Assets/linkedin.png',
   },
 }
