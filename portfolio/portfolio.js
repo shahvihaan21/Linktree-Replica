@@ -1,36 +1,29 @@
 /* ─────────────────────────────────────────────────────
    Portfolio Page Script
-   Data-driven certifications with lightbox support
+   Data-driven certifications with accessible lightbox support
    ───────────────────────────────────────────────────── */
 
 /**
  * CERTIFICATIONS DATA
  * ─────────────────────
- * Add new certifications by adding objects to this array.
+ * Add genuine certifications here.
  * Each certification supports:
- *   image  — (required) path to the certification image
+ *   image  — (required) path to the certificate document / image
  *   title  — (optional) certification name
  *   issuer — (optional) issuing organisation
  *   year   — (optional) year received
- *
- * Example:
- * {
- *   image: '../Assets/certifications/google-analytics.png',
- *   title: 'Google Analytics Certified',
- *   issuer: 'Google',
- *   year: '2026'
- * }
  */
 const certifications = [
   {
     image: '../Assets/Student buddy.png',
-    title: 'Student Buddy',
-  },
-  {
-    image: '../Assets/International Week.jpg',
-    title: 'International Week',
+    title: 'Student Buddy Coordinator',
+    issuer: 'Parul University',
+    year: '2025 – 2026',
   },
 ];
+
+// Track element to restore focus after closing lightbox
+let lastFocusedElement = null;
 
 // ── Render Certifications ──
 function renderCertifications() {
@@ -41,11 +34,11 @@ function renderCertifications() {
   if (!grid || !section) return;
 
   // Filter out entries without an image
-  const valid = certifications.filter(c => c.image);
+  const valid = certifications.filter((c) => c && c.image);
 
   if (valid.length === 0) {
     grid.replaceChildren();
-    if (empty) empty.style.display = '';
+    if (empty) empty.style.display = 'block';
     return;
   }
 
@@ -55,7 +48,7 @@ function renderCertifications() {
   grid.replaceChildren();
 
   valid.forEach((cert, i) => {
-    const delay = (0.38 + i * 0.07).toFixed(2);
+    const delay = (0.30 + i * 0.06).toFixed(2);
 
     // Outer card
     const card = document.createElement('div');
@@ -77,7 +70,7 @@ function renderCertifications() {
     imageWrap.appendChild(img);
     card.appendChild(imageWrap);
 
-    // Info block (only if there's something to show)
+    // Info block
     const hasInfo = cert.title || cert.issuer || cert.year;
     if (hasInfo) {
       const info = document.createElement('div');
@@ -109,7 +102,7 @@ function renderCertifications() {
   });
 }
 
-// ── Lightbox ──
+// ── Lightbox with focus trap & restoration ──
 function initLightbox() {
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-image');
@@ -118,7 +111,8 @@ function initLightbox() {
 
   if (!lightbox || !lightboxImg || !grid) return;
 
-  function openLightbox(src, alt) {
+  function openLightbox(src, alt, triggerEl) {
+    lastFocusedElement = triggerEl || document.activeElement;
     lightboxImg.src = src;
     lightboxImg.alt = alt;
     lightbox.classList.add('is-active');
@@ -128,27 +122,31 @@ function initLightbox() {
   }
 
   function closeLightbox() {
+    if (!lightbox.classList.contains('is-active')) return;
     lightbox.classList.remove('is-active');
     lightbox.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+      lastFocusedElement.focus();
+    }
   }
 
-  // Delegate click on certification cards
+  // Click card to open
   grid.addEventListener('click', (e) => {
     const card = e.target.closest('.cert-card');
     if (!card) return;
     const img = card.querySelector('img');
-    if (img) openLightbox(img.src, img.alt);
+    if (img) openLightbox(img.src, img.alt, card);
   });
 
-  // Keyboard support on cert cards
+  // Keyboard navigation on cards
   grid.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       const card = e.target.closest('.cert-card');
       if (!card) return;
       e.preventDefault();
       const img = card.querySelector('img');
-      if (img) openLightbox(img.src, img.alt);
+      if (img) openLightbox(img.src, img.alt, card);
     }
   });
 
@@ -161,13 +159,31 @@ function initLightbox() {
     if (e.target === lightbox) closeLightbox();
   });
 
+  // Global keyboard handler for lightbox (Escape & Tab trap)
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && lightbox.classList.contains('is-active')) {
+    if (!lightbox.classList.contains('is-active')) return;
+
+    if (e.key === 'Escape') {
+      e.preventDefault();
       closeLightbox();
+      return;
+    }
+
+    if (e.key === 'Tab') {
+      // Trap focus on close button
+      e.preventDefault();
+      lightboxClose?.focus();
     }
   });
 }
 
 // ── Init ──
-renderCertifications();
-initLightbox();
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    renderCertifications();
+    initLightbox();
+  });
+} else {
+  renderCertifications();
+  initLightbox();
+}

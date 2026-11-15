@@ -6,6 +6,35 @@
    ───────────────────────────────────────────────────── */
 
 @font-face {
+  font-family: 'Inter';
+  src: url('../Assets/fonts/inter-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('../Assets/fonts/inter-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('../Assets/fonts/inter-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('../Assets/fonts/inter-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'Sora';
   src: url('../Assets/fonts/sora-400.woff2') format('woff2');
   font-weight: 400;
@@ -36,10 +65,12 @@
 
 /* ── Foundation ── */
 :root {
-  font-family: Sora, ui-sans-serif, system-ui, sans-serif;
+  font-family: Inter, Sora, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   color: #f5f5f5;
   background: #070707;
   font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 * {
@@ -51,6 +82,8 @@
 body {
   min-width: 320px;
   min-height: 100vh;
+  background-color: #070707;
+  color: #f5f5f5;
 }
 
 a {
@@ -86,31 +119,34 @@ img {
   width: 100%;
   max-width: 750px;
   padding: 40px 24px 0;
-  animation: pf-fade 0.4s 0.08s ease-out both;
+  animation: pf-fade 0.35s 0.08s ease-out both;
 }
 
 .back-link {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  color: #777a86;
+  color: #888b96;
   font-size: 13px;
   font-weight: 500;
   letter-spacing: -0.01em;
-  transition: color 0.2s ease;
+  padding: 6px 10px 6px 6px;
+  border-radius: 8px;
+  transition: color 0.2s ease, background-color 0.2s ease;
 }
 
 .back-link:hover {
-  color: #c8cad2;
+  color: #f0f2f8;
+  background-color: rgba(255, 255, 255, 0.03);
 }
 
 .back-link svg {
   flex-shrink: 0;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .back-link:hover svg {
-  transform: translateX(-2px);
+  transform: translateX(-3px);
 }
 
 /* ── Main Content ── */
@@ -125,8 +161,8 @@ img {
 
 /* ── Header ── */
 .portfolio-header {
-  margin-top: 64px;
-  animation: pf-fade 0.4s 0.15s ease-out both;
+  margin-top: 60px;
+  animation: pf-fade 0.35s 0.15s ease-out both;
 }
 
 .eyebrow {
@@ -147,9 +183,9 @@ img {
 
 /* ── Professional Description ── */
 .portfolio-description {
-  margin-top: 40px;
+  margin-top: 36px;
   max-width: 700px;
-  animation: pf-fade 0.45s 0.25s ease-out both;
+  animation: pf-fade 0.35s 0.22s ease-out both;
 }
 
 .portfolio-description p {
@@ -160,17 +196,17 @@ img {
   letter-spacing: -0.008em;
 }
 
-.portfolio-description p+p {
+.portfolio-description p + p {
   margin-top: 22px;
 }
 
 .portfolio-description strong {
-  color: #dce0ef;
+  color: #e2e5ef;
   font-weight: 600;
 }
 
 .resume-action {
-  margin-top: 36px;
+  margin-top: 34px;
   display: flex;
   justify-content: flex-start;
 }
@@ -179,30 +215,32 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 14px 32px;
+  padding: 13px 30px;
   background: linear-gradient(135deg, #e2e5ef, #f5f5f5);
   color: #070707;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.09em;
   border-radius: 9999px;
-  box-shadow: 0 8px 24px rgba(226, 229, 239, 0.15);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 20px rgba(226, 229, 239, 0.12);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.2s ease,
+              background 0.2s ease;
 }
 
 .resume-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(226, 229, 239, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(226, 229, 239, 0.22);
 }
 
 .resume-btn:active {
-  transform: translateY(0);
+  transform: translateY(0) scale(0.985);
 }
 
 /* ── Certifications Section ── */
 .certifications-section {
-  margin-top: 72px;
-  animation: pf-fade 0.45s 0.35s ease-out both;
+  margin-top: 68px;
+  animation: pf-fade 0.35s 0.30s ease-out both;
 }
 
 .section-label {
@@ -210,7 +248,7 @@ img {
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.18em;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
 }
 
 .certifications-grid {
@@ -221,40 +259,42 @@ img {
 
 /* Empty state */
 .certifications-empty {
-  color: #555761;
+  color: #6a6c76;
   font-size: 13px;
   font-weight: 400;
   line-height: 1.6;
   padding: 28px 0;
   text-align: center;
-  border: 1px dashed rgba(255, 255, 255, 0.06);
+  border: 1px dashed rgba(255, 255, 255, 0.07);
   border-radius: 12px;
 }
 
 /* Hide empty state when grid has cards */
-.certifications-grid:not(:empty)+.certifications-empty {
+.certifications-grid:not(:empty) + .certifications-empty {
   display: none;
 }
 
 /* Certification Card */
 .cert-card {
   border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: 12px;
+  border-radius: 14px;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.018));
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
-  animation: pf-rise 0.4s ease-out both;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.2s ease,
+              box-shadow 0.2s ease;
+  animation: pf-rise 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .cert-card:hover {
   transform: translateY(-2px);
-  border-color: rgba(220, 226, 255, 0.18);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22), 0 0 20px rgba(147, 163, 219, 0.04);
+  border-color: rgba(220, 226, 255, 0.22);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22), 0 0 20px rgba(147, 163, 219, 0.05);
 }
 
 .cert-card:active {
-  transform: scale(0.985);
+  transform: translateY(0) scale(0.985);
 }
 
 .cert-image-wrap {
@@ -268,6 +308,11 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cert-card:hover .cert-image-wrap img {
+  transform: scale(1.03);
 }
 
 .cert-info {
@@ -278,7 +323,7 @@ img {
   font-size: 14px;
   font-weight: 600;
   color: #e2e5ef;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   line-height: 1.3;
 }
 
@@ -311,7 +356,7 @@ img {
   -webkit-backdrop-filter: blur(12px);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .lightbox.is-active {
@@ -333,12 +378,14 @@ img {
   color: #c8cad2;
   font-size: 22px;
   cursor: pointer;
-  transition: color 0.2s ease, background 0.2s ease;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
 .lightbox-close:hover {
   color: #fff;
   background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: scale(1.05);
 }
 
 .lightbox-image {
@@ -346,8 +393,8 @@ img {
   max-height: 82vh;
   border-radius: 8px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  transform: scale(0.95);
-  transition: transform 0.25s ease;
+  transform: scale(0.96);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .lightbox.is-active .lightbox-image {
@@ -357,9 +404,9 @@ img {
 /* ── Footer ── */
 .portfolio-footer {
   margin-top: auto;
-  padding: 72px 0 34px;
+  padding: 68px 0 34px;
   text-align: center;
-  animation: pf-fade 0.4s 0.45s ease-out both;
+  animation: pf-fade 0.35s 0.42s ease-out both;
 }
 
 .footer-links {
@@ -372,7 +419,7 @@ img {
 .footer-links a {
   color: #777a86;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   transition: color 0.2s ease;
 }
 
@@ -396,18 +443,18 @@ img {
 
 /* ── Focus Visible ── */
 a:focus-visible,
-button:focus-visible {
-  outline: 2px solid #b9c6ff;
+button:focus-visible,
+.cert-card:focus-visible {
+  outline: 2px solid #a5b4fc;
   outline-offset: 3px;
 }
 
-/* ── Animations ── */
+/* ── Keyframe Animations ── */
 @keyframes pf-fade {
   from {
     opacity: 0;
     transform: translateY(6px);
   }
-
   to {
     opacity: 1;
     transform: none;
@@ -419,7 +466,6 @@ button:focus-visible {
     opacity: 0;
     transform: translateY(12px);
   }
-
   to {
     opacity: 1;
     transform: none;
@@ -437,11 +483,11 @@ button:focus-visible {
   }
 
   .portfolio-header {
-    margin-top: 48px;
+    margin-top: 44px;
   }
 
   .portfolio-description {
-    margin-top: 32px;
+    margin-top: 28px;
   }
 
   .portfolio-description p {
@@ -454,11 +500,11 @@ button:focus-visible {
   }
 
   .certifications-section {
-    margin-top: 56px;
+    margin-top: 52px;
   }
 
   .portfolio-footer {
-    padding: 56px 0 28px;
+    padding: 52px 0 28px;
   }
 }
 
@@ -474,16 +520,16 @@ button:focus-visible {
   }
 
   .portfolio-header {
-    margin-top: 72px;
+    margin-top: 68px;
   }
 
   .certifications-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   }
 }
 
+/* ── Reduced Motion ── */
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {
