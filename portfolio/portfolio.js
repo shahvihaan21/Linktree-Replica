@@ -15,7 +15,7 @@
  */
 const certifications = [
   {
-    image: '../Assets/Student buddy.png',
+    image: '../Assets/images/Student buddy.png',
     title: 'Student Buddy Coordinator',
     issuer: 'Parul University',
     year: '2025 – 2026',
